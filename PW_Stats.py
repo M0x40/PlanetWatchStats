@@ -6,7 +6,6 @@ import base64
 import datetime
 
 my = algosdk.v2client.indexer.IndexerClient(indexer_token="",indexer_address="https://algoindexer.algoexplorerapi.io")
-acct = 'TISUX6HMR6GLI4B7CBZLUJCV4M7IGKPVMP6P2SSUG5XXL33RSJH7KHLEXI'
 acct = input("Enter your account id:")
 try:
     response = my.search_transactions_by_address(address=acct, min_amount=1, limit=1000, asset_id=27165954)
@@ -20,11 +19,11 @@ try:
                 planets_per_stream = amount / streams
                 device = json.loads(base64.b64decode(note))['deviceId']
                 tDate =  datetime.datetime.fromtimestamp(transaction['round-time']).isoformat()
-                print("Date:{}\tDevice:{}\tStreams:{}\tPlanets:{}\tStreams/Planet:{}".format(tDate, device, streams, amount/1000000, planets_per_stream/1000000))
+                print("Date:{}\tDevice:{}\tStreams:{}\tPlanets:{}\tPlanets/Stream:{}".format(tDate, device, streams, amount/1000000, planets_per_stream/1000000))
     else:
         print("Something went wrong")
 
 except algosdk.error.IndexerHTTPError:
-    print("T")
+    print("Account ID provided is not valid.")
 except:
-    print("A")
+    print("Something else went wrong.")
